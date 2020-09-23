@@ -205,7 +205,7 @@ class CommandBus extends AnswerBus
     protected function process($entity, Update $update)
     {
         $command = $this->parseCommand(
-            $update->getMessage()->text,
+            strtolower($update->getMessage()->text),
             $entity['offset'],
             $entity['length']
         );
@@ -268,7 +268,8 @@ class CommandBus extends AnswerBus
             throw new TelegramSDKException(
                 sprintf(
                     '[Error] Alias [%s] conflicts with command name of "%s" try with another name or remove this alias from the list.',
-                    $alias, get_class($command)
+                    $alias,
+                    get_class($command)
                 )
             );
         }
